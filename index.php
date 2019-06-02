@@ -6,6 +6,7 @@ require_once("vendor/autoload.php");
 use\Slim\Slim;
 //use Hcode\Model\User;
 use Hcode\Page;
+use Hcode\PageAdmin;
 
 $app = new Slim();
 
@@ -23,14 +24,14 @@ $app->get('/', function() {
 
 $app->get('/admin', function() {
     
-	User::verifyLogin();
+	//User::verifyLogin();
 
 	$page = new Hcode\PageAdmin();
 
 	$page->setTpl("index");
 
 });
-
+/*
 $app->get('/admin/login', function() {
     
 	$page = new Hcode\PageAdmin([
@@ -59,6 +60,7 @@ $app->get('/admin/logout', function() {
 	exit;
 
 });
+*/
 
 $app->run();
 
