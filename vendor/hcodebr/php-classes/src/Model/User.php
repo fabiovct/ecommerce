@@ -28,10 +28,11 @@ class User extends Model {
 
 		$data = $results[0];
 
-		if (password_verify($password, $data["despassword"])) {
+		if (password_verify($password, $data["despassword"]) === true) {
 
 			$user = new User();
 			$user->setData($data);
+			//$user->setiduser($data["iduser"]);
 
 			$_SESSION[User::SESSION] = $user->getValues();
 
@@ -62,7 +63,7 @@ class User extends Model {
 			||
 			!(int)$_SESSION[User::SESSION]["iduser"] > 0
 			||
-			(bool)$_SESSION[User::SESSION]["iduser"] !== $inadmin
+			(bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
 		) {
 			
 			header("Location: /admin/login");
