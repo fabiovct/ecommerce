@@ -6,17 +6,7 @@ class Model {
 
 	private $values = [];
 
-	public function setData($data = array())
-	{
-
-		foreach ($data as $key => $value)
-		{
-
-			$this->{"set".$key}($value);
-
-		}
-
-	}
+	
 
 	public function __call($name, $args)
 	{
@@ -39,6 +29,18 @@ class Model {
 				break;
 
 			}
+
+		}
+
+	}
+
+	public function setData($data = array())
+	{
+
+		foreach ($data as $key => $value)
+		{
+
+			$this->{"set".$key}($value);
 
 		}
 

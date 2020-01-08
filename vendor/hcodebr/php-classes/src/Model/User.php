@@ -9,9 +9,10 @@ class User extends Model {
 
 	const SESSION = "User";
 
-	protected $fields = [
-		"iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister"
-	];
+	//protected $fields = [
+		//"iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister"
+	//];
+	protected $fields = [ "iduser", "idperson", "desperson", "nrphone", "desemail", "deslogin", "despassword", "inadmin", "dtergister"];
 
 	public static function login($login, $password):User
 	{
@@ -32,7 +33,6 @@ class User extends Model {
 
 			$user = new User();
 			$user->setData($data);
-			//$user->setiduser($data["iduser"]);
 
 			$_SESSION[User::SESSION] = $user->getValues();
 
@@ -78,6 +78,30 @@ class User extends Model {
 		$sql = new Sql();
 		return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) ORDER BY b.desperson");
 
+	}
+
+	public function save()
+	{
+		$sql = new Sql();
+		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", 
+		array(
+			":desperson"=>$this->getdesperson(),
+			":deslogin"=>$this->getdeslogin(),
+			":despassword"=>$this->getdespassword(),
+			":desemail"=>$this->getdesemail(),
+			":nrphone"=>$this->getnrphone(),
+			":inadmin"=>$this->getinadmin()
+		));
+
+		$this->setData($results[0]);
+		//var_dump($results);
+	}
+
+	public function get($iduser)
+	{
+		$sql = new Sql();
+
+		$sql->select("SELECT ");
 	}
 
 }
