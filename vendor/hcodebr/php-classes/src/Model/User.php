@@ -161,7 +161,18 @@ class User extends Model {
 			} else {
 				$dataRecovery = $results2[0];
 				$code = base64_decode( openssl_encrypt(MCRYPT_RIJNDAEL_256, User::SECRET, $dataRecovery["idrecovery"], MCRYPT_MODE_CBC));
-				$link = "http://www.hcodecommerce.com.br/admin/forgot/reset";
+				$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+				$mailer = new Mailer(
+					$data["desemail"], 
+					$data["desperson"], 
+					"Redefinir senha",
+					"forgot",
+					array(
+						"name"=>$data["desperson"],
+						"link"=>$link
+					)
+				);
+				$mailer->send();
 			}
 		}
 	}
