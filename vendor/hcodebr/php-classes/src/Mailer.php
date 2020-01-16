@@ -4,7 +4,7 @@ use Rain\Tpl;
 class Mailer {
 	
 	const USERNAME = "vct.fabio.vct@gmail.com";
-	const PASSWORD = "<?password?>";
+	const PASSWORD = "xxxx";
 	const NAME_FROM = "Hcode Store";
 	private $mail;
 	public function __construct($toAddress, $toName, $subject, $tplName, $data = array())
@@ -37,6 +37,17 @@ class Mailer {
 		// if your network does not support SMTP over IPv6
 		//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
 		$this->mail->Port = 587;
+
+		$this->mail->SMTPOptions = array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name'=>false,
+				'allow_self_signed'=>true
+			)
+		);
+
+
+
 		//Set the encryption system to use - ssl (deprecated) or tls
 		$this->mail->SMTPSecure = 'tls';
 		//Whether to use SMTP authentication
